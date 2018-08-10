@@ -13,6 +13,10 @@ void LTC2656FastSPI::Begin() {
   // (for speed setting) to "SPI.beginTransaction(SPISettings(50000000, MSBFIRST, SPI_MODE0))"
   //
   spi_reg->SPI_CSR[3]=0x0000020A;
+
+  //pinMode(dacSelectPin, OUTPUT);
+  pinMode(DAC_SELECT_PIN, OUTPUT);
+  
 }
 
 

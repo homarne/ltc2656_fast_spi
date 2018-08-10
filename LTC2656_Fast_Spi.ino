@@ -18,12 +18,6 @@
 #include <SPI.h>
 #include "ltc2656_fast_spi.h"
 
-// data buffer for one channel of LTC2656 data
-uint8_t dac_data_1ch[3];
-
-// set pin 10 as the dac select pin:
-const int dacSelectPin = 31;
-
 /*
  * Note: The 12bit DACs on the Arduino Due use the lowest 12 bits of the data word
  * In contrast, the 12-bit version of the LTC2656 uses the uppermost 12 bits of the data word, 
@@ -35,6 +29,10 @@ const int dacSelectPin = 31;
 #define STEP_SIZE 0x00000800  // (DAC_FS+1)/STEP_SIZE = 32 steps
 
 uint32_t out_value = 0;
+
+// data buffer for one channel of LTC2656 data
+uint8_t dac_data_1ch[3];
+// data buffer for eight channels of LTC2656 data
 dac_data dac_data_8ch[8];
 
 LTC2656FastSPI FASTDAC;
@@ -43,7 +41,7 @@ void setup() {
   
   Serial.begin(9600);
   // set the dacSelectPin as an output:
-  pinMode(dacSelectPin, OUTPUT);
+  
   // initialize SPI:
   SPI.begin();
   // Set SPI data rate to 50 MHz (default is 8 MHz)
@@ -179,11 +177,11 @@ void WriteDacData(uint8_t * data, int byte_count) {
   // This function takes a bit more than 5 uS from bit select low to bit select high
   
   // Take DAC chip select pin low to select the chip:
-  digitalWrite(dacSelectPin, LOW);
+  digitalWrite(DAC_SELECT_PIN, LOW);
   // send bytes to SPI
   SPI.transfer(data, byte_count);
   // Take DAC chip select pin high to unselect the chip:
-  digitalWrite(dacSelectPin, HIGH);
+  digitalWrite(DAC_SELECT_PIN, HIGH);
 }
 
 

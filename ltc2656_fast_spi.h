@@ -1,5 +1,5 @@
-#ifndef ltc2656_fast_spi
-#define ltc2656_fast_spi
+#ifndef ltc2656_fast_spix
+#define ltc2656_fast_spix
 
 
 #include "Arduino.h"
@@ -94,9 +94,11 @@ volatile struct SPI_PORTS * const spi_reg = (struct SPI_PORTS *)0x40008000U;
 // direct port manipulation
 // using Arduino Due pin 31 for chip select
 // per grey nomad Due pinout diagram, pin 31 is port A.7
-// will have to change this is diffeent pin is used for chip select
+// will have to change this is different pin is used for chip select
 // to do: make this programable (but without the overhead in the native libraries)
+#define DAC_SELECT_PIN 31
 #define DAC_CS_MASK (1<<7)
+//const int dacSelectPin = 31;
 
 // note: an disussion of  fast pin manipulation on Due can be found here:
 // http://forum.arduino.cc/index.php?topic=260731.0
@@ -119,8 +121,6 @@ class LTC2656FastSPI {
     void WriteDac(uint8_t cmd_addr, uint8_t * data);
     void WriteDac8(dac_data * data);
 };
-     
-
 
 #endif
 
