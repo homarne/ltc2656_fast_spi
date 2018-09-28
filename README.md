@@ -1,4 +1,4 @@
-# Fast SPI library for LTC2656 8-channel DAC
+# Fast Arduino SPI library for LTC2656 8-channel DAC
 
 This code grew out of a project to use an Arduino Due to build an 8-channel LFO for use as modulations sources for synthesizers.  The Arduino Due was used because it has a sufficiently high clock rate to do the required calulations for multi-channel LFO generation in real-time.
    
